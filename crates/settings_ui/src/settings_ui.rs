@@ -1531,6 +1531,11 @@ impl SettingsWindow {
         })
         .detach();
 
+        cx.observe_global_in::<agent_skills::SkillIndex>(window, |_this, _window, cx| {
+            cx.notify();
+        })
+        .detach();
+
         use feature_flags::FeatureFlagAppExt as _;
         let mut last_is_staff = cx.is_staff();
         cx.observe_global_in::<feature_flags::FeatureFlagStore>(window, move |this, window, cx| {

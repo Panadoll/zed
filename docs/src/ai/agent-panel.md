@@ -131,7 +131,7 @@ The Agent Panel can host Terminal Threads alongside your agent threads. For open
 The agent can search your codebase to find relevant context, but providing it explicitly improves response quality and reduces latency.
 
 Add context by typing `@` in the message editor.
-You can mention files, directories, symbols, previous threads, skills, instruction files, and diagnostics.
+You can mention files, directories, symbols, previous threads, skills, diagnostics, branch diffs, and URLs to fetch.
 
 When you paste multi-line code selections copied from a buffer, Zed automatically formats them as @-mentions with the file context.
 To paste content without this automatic formatting, use {#kb agent::PasteRaw} to paste raw text directly.
@@ -153,7 +153,7 @@ Copying an image and pasting it is also supported.
 Zed surfaces how many tokens you are consuming for your currently active thread near the profile selector in the panel's message editor.
 
 Once you approach the model's context window, a banner appears above the message editor suggesting to start a new thread with the current one summarized and added as context.
-You can also do this at any time with an ongoing thread via the "Agent Options" menu on the top right, where you'll see a "New from Summary" button, as well as simply @-mentioning a past thread in a new one.
+You can also do this at any time with an ongoing thread via the New Thread menu (the `+` button on the top right), where you'll see a "New From Summary" option, as well as simply @-mentioning a past thread in a new one.
 
 ## Changing Models {#changing-models}
 

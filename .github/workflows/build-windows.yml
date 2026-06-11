@@ -1,0 +1,41 @@
+name: build-windows
+env:
+  CARGO_TERM_COLOR: always
+  RUST_BACKTRACE: '1'
+on:
+  workflow_dispatch: {}
+jobs:
+  bundle_windows_x86_64:
+    runs-on: windows-latest
+    env:
+      CARGO_INCREMENTAL: 0
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        clean: false
+
+    - name: Set release channel
+      run: |
+        "nightly" | Set-Content -Path "crates/zed/RELEASE_CHANNEL"
+      shell: pwsh
+
+    - name: Setup Rust
+      run: rustup update stable
+
+    - name: Setup Node
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Bundle Windows
+      run: ./script/bundle-windows.ps1 -Architecture x86_64
+      shell: pwsh
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Zed-x86_64.exe
+        path: target/Zed-x86_64.exe
+        if-no-files-found: error
+    timeout-minutes: 180

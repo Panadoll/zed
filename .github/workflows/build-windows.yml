@@ -9,6 +9,7 @@ jobs:
     runs-on: windows-latest
     env:
       CARGO_INCREMENTAL: 0
+      CI: 'false'
     steps:
     - name: Checkout
       uses: actions/checkout@v4

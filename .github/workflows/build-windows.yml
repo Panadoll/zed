@@ -9,8 +9,14 @@ jobs:
     runs-on: windows-latest
     env:
       CARGO_INCREMENTAL: 0
-      CI: 'false'
+      CARGO_HOME: D:\.cargo
     steps:
+    - name: Enable long paths
+      run: |
+        git config --global core.longpaths true
+        New-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -PropertyType DWORD -Force
+      shell: pwsh
+
     - name: Checkout
       uses: actions/checkout@v4
       with:

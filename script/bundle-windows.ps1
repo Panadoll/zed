@@ -127,10 +127,7 @@ function BuildRemoteServer {
     # Create zipped remote server binary
     $remoteServerSrc = (Resolve-Path ".\$CargoOutDir\remote_server.exe").Path
 
-    if ($env:CI) {
-        Write-Output "Code signing remote_server.exe"
-        & "$innoDir\sign.ps1" $remoteServerSrc
-    }
+    # Code signing skipped (no Azure keys)
 
     $remoteServerDst = "$env:ZED_WORKSPACE\target\zed-remote-server-windows-$Architecture.zip"
     Write-Output "Compressing remote_server to $remoteServerDst"
@@ -199,12 +196,7 @@ function MakeAppx {
 }
 
 function SignZedAndItsFriends {
-    if (-not $env:CI) {
-        return
-    }
-
-    $files = "$innoDir\Zed.exe,$innoDir\cli.exe,$innoDir\auto_update_helper.exe,$innoDir\zed_explorer_command_injector.dll,$innoDir\zed_explorer_command_injector.appx"
-    & "$innoDir\sign.ps1" $files
+    # Code signing skipped (no Azure keys)
 }
 
 function DownloadAMDGpuServices {
@@ -339,10 +331,7 @@ function BuildInstaller {
     }
 
     $innoArgs = @($issFilePath) + $defs
-    if($env:CI) {
-        $signTool = "powershell.exe -ExecutionPolicy Bypass -File $innoDir\sign.ps1 `$f"
-        $innoArgs += "/sDefaultsign=`"$signTool`""
-    }
+    # Code signing skipped (no Azure keys)
 
     # Execute Inno Setup
     Write-Host "🚀 Running Inno Setup: $innoSetupPath $innoArgs"
